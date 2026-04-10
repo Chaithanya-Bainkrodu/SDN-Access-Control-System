@@ -12,7 +12,7 @@ class AccessControl(app_manager.RyuApp):
         super(AccessControl, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
 
-        # ✅ WHITELIST
+        # WHITELIST
         self.whitelist = {
             "10.0.0.1": ["10.0.0.2"],
             "10.0.0.2": ["10.0.0.1"],
@@ -56,7 +56,7 @@ class AccessControl(app_manager.RyuApp):
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
 
-        # ❗ Ignore LLDP
+        # Ignore LLDP
         if eth.ethertype == ether_types.ETH_TYPE_LLDP:
             return
 
@@ -79,7 +79,7 @@ class AccessControl(app_manager.RyuApp):
 
         ip_pkt = pkt.get_protocol(ipv4.ipv4)
 
-        # ✅ ACCESS CONTROL LOGIC
+        # ACCESS CONTROL LOGIC
         if ip_pkt:
             src_ip = ip_pkt.src
             dst_ip = ip_pkt.dst
@@ -93,7 +93,7 @@ class AccessControl(app_manager.RyuApp):
                 ipv4_dst=dst_ip
             )
 
-            # ✅ ALLOW
+            # ALLOW
             if src_ip in self.whitelist and dst_ip in self.whitelist[src_ip]:
                 self.logger.info("ALLOWED")
                 actions = [parser.OFPActionOutput(out_port)]
@@ -101,14 +101,14 @@ class AccessControl(app_manager.RyuApp):
                 # install allow rule
                 self.add_flow(datapath, 10, match, actions)
 
-            # ❌ BLOCK
+            # BLOCK
             else:
                 self.logger.info("BLOCKED")
 
                 # install DROP rule
                 self.add_flow(datapath, 10, match, [])
 
-                return  # 🚨 stop forwarding
+                return  # stop forwarding
 
         else:
             # allow ARP and other non-IP packets
