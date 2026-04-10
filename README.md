@@ -164,18 +164,25 @@ mininet> h1 iperf -c 10.0.0.2
 **Observation:** High throughput is achieved on the allowed h1 → h2 path, since Mininet runs in a virtualized environment with minimal overhead. This confirms that permitted flows are forwarded efficiently after the initial flow rule is installed.
 
 ---
-
 ## Screenshots
 
-| Screenshot | Description |
-|------------|-------------|
-| `Ryu_output.png` | Controller console showing ALLOWED / BLOCKED log messages |
-| `pingall.png` | Mininet `pingall` confirming only h1 ↔ h2 succeed |
-| `allowed_ping.png` | Successful ping between h1 and h2 |
-| `blocked_ping.png` | Failed ping from h3 (all packets dropped) |
-| `flow_table.png` | OVS flow table showing installed ALLOW and DROP rules |
-| `iperf.png` | iperf throughput result for the allowed h1 → h2 path |
+Controller console showing ALLOWED / BLOCKED log messages  
+![Ryu Controller Output](screenshots/Ryu_output.png)
 
+Mininet `pingall` confirming only h1 ↔ h2 succeed  
+![Pingall Result](screenshots/pingall.png)
+
+Successful ping between h1 and h2  
+![Allowed Ping](screenshots/allowed_ping.png)
+
+Failed ping from h3 (all packets dropped)  
+![Blocked Ping](screenshots/blocked_ping.png)
+
+OVS flow table showing installed ALLOW and DROP rules  
+![Flow Table](screenshots/flow_table.png)
+
+iperf throughput result for the allowed h1 → h2 path  
+![iPerf Result](screenshots/iperf.png)
 ---
 
 ## Key Observations
