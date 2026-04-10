@@ -31,10 +31,10 @@ h4 (10.0.0.4) ─┘
 
 | Source Host | Allowed Destinations | Action |
 |-------------|----------------------|--------|
-| h1 (10.0.0.1) | h2 (10.0.0.2) | ✅ ALLOW |
-| h2 (10.0.0.2) | h1 (10.0.0.1) | ✅ ALLOW |
-| h3 (10.0.0.3) | *(none)* | ❌ BLOCK all |
-| h4 (10.0.0.4) | *(none defined)* | ❌ BLOCK all |
+| h1 (10.0.0.1) | h2 (10.0.0.2) | ALLOW |
+| h2 (10.0.0.2) | h1 (10.0.0.1) | ALLOW |
+| h3 (10.0.0.3) | *(none)* | BLOCK all |
+| h4 (10.0.0.4) | *(none defined)* | BLOCK all |
 
 The whitelist is defined directly in `access_control.py` and can be modified to add or remove authorized communication pairs.
 
@@ -120,7 +120,7 @@ sudo mn --topo single,4 --controller remote
 
 ## Test Cases
 
-### ✅ Allowed Communication — h1 ↔ h2
+### Allowed Communication — h1 ↔ h2
 
 ```
 mininet> h1 ping h2
@@ -130,7 +130,7 @@ mininet> h1 ping h2
 
 ---
 
-### ❌ Blocked Communication — h3 → h1
+### Blocked Communication — h3 → h1
 
 ```
 mininet> h3 ping h1
@@ -140,15 +140,15 @@ mininet> h3 ping h1
 
 ---
 
-### 🌐 Network-wide Reachability Test
+### Network-wide Reachability Test
 
 ```
 mininet> pingall
 ```
 
 **Expected output:**
-- h1 ↔ h2 → ✅ reachable
-- All other host pairs → ❌ unreachable
+- h1 ↔ h2 → reachable
+- All other host pairs → unreachable
 
 This confirms that the whitelist policy is correctly enforced across the entire network.
 
